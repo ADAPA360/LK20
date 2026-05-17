@@ -1,0 +1,77 @@
+{
+  "bank_health": {
+    "all_dims_match": true,
+    "dim": 128,
+    "entry_count": 1000,
+    "exists": true,
+    "finite": true,
+    "has_relation_matrix": false,
+    "is_stable": true,
+    "kind": "SemanticAttractorBank",
+    "metadata_stats": {
+      "bad_pos_dropped": 63,
+      "duplicate_dropped": 0,
+      "empty_lemma_dropped": 9,
+      "entry_count": 1000,
+      "gloss_token_max": 66,
+      "gloss_token_mean": 14.44,
+      "pos_counts": {
+        "adjective": 1000
+      },
+      "raw_record_count": 9740,
+      "record_count": 1000,
+      "relation_counts": {
+        "also_see": 491,
+        "antonyms": 1048,
+        "attributes": 216,
+        "derivationally_related": 681,
+        "domain_topic": 163,
+        "domain_usage": 7,
+        "similar_to": 2583
+      },
+      "sources": {
+        "wordnet:data.adj": 1000
+      },
+      "unique_lemma_count": 892,
+      "warnings_count": 0
+    },
+    "metadata_version": 3,
+    "path": "C:\\Users\\ali_z\\ANU AI\\LK20\\local_ai\\semantic_bank_bootstrap_wordnet_moby_probe.npz",
+    "relation_shape": [
+      0,
+      0
+    ],
+    "vector_norm_max": 1.0000001192092896,
+    "vector_norm_mean": 1.0,
+    "vector_norm_min": 0.9999998807907104
+  },
+  "out": "C:\\Users\\ali_z\\ANU AI\\LK20\\local_ai\\semantic_bank_bootstrap_wordnet_moby_probe.npz",
+  "stats": {
+    "bad_pos_dropped": 63,
+    "duplicate_dropped": 0,
+    "empty_lemma_dropped": 9,
+    "entry_count": 1000,
+    "gloss_token_max": 66,
+    "gloss_token_mean": 14.44,
+    "pos_counts": {
+      "adjective": 1000
+    },
+    "raw_record_count": 9740,
+    "record_count": 1000,
+    "relation_counts": {
+      "also_see": 491,
+      "antonyms": 1048,
+      "attributes": 216,
+      "derivationally_related": 681,
+      "domain_topic": 163,
+      "domain_usage": 7,
+      "similar_to": 2583
+    },
+    "sources": {
+      "wordnet:data.adj": 1000
+    },
+    "unique_lemma_count": 892,
+    "warnings_count": 0
+  },
+  "warnings": []
+}

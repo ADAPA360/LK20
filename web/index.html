@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akkurat LK20 Digital Twin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>LK20 Digital Twin</h2>
+      <span id="system-status-badge" class="status-badge">Checking...</span>
+    </div>
+    <nav class="nav-menu">
+      <div class="nav-item active" data-target="tab-overview">Overview</div>
+      <div class="nav-item" data-target="tab-login">Login</div>
+      <div class="nav-item" data-target="tab-student">Student</div>
+      <div class="nav-item" data-target="tab-upload">Teacher Upload</div>
+      <div class="nav-item" data-target="tab-inspect">Inspect</div>
+      <div class="nav-item" data-target="tab-search">Search</div>
+      <div class="nav-item" data-target="tab-coverage">Coverage</div>
+      <div class="nav-item" data-target="tab-government">Government</div>
+      <div class="nav-item" data-target="tab-audit">Audit</div>
+      <div class="nav-item" data-target="tab-ai">Local AI</div>
+      <div class="nav-item" data-target="tab-json">JSON Output</div>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="header">
+      <div class="user-info">
+        Role: <strong id="header-role">guest</strong> | 
+        User: <strong id="header-user">anonymous</strong> | 
+        School: <strong id="header-school">None</strong>
+      </div>
+      <div class="user-info">
+        Server: <strong id="header-server">http://127.0.0.1:8000</strong>
+      </div>
+    </header>
+
+    <div class="content-area">
+      <!-- Overview Tab -->
+      <section id="tab-overview" class="tab-pane active">
+        <div class="card">
+          <h3>System Controls</h3>
+          <div class="action-bar">
+            <button class="btn btn-primary" onclick="app.getStatus()">Status</button>
+            <button class="btn btn-primary" onclick="app.getHealth()">Health</button>
+            <button class="btn btn-primary" onclick="app.initProject()">Init Project</button>
+            <button class="btn btn-primary" onclick="app.createNetwork()">Create Network</button>
+            <button class="btn btn-primary" onclick="app.verifyNetwork()">Verify Network</button>
+          </div>
+        </div>
+        <div id="overview-results" class="grid-2">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Login Tab -->
+      <section id="tab-login" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Session Management</h3>
+          <form id="login-form" onsubmit="event.preventDefault(); app.login();">
+            <div class="form-group">
+              <label>Role</label>
+              <select id="login-role" required>
+                <option value="guest">guest</option>
+                <option value="student">student</option>
+                <option value="teacher">teacher</option>
+                <option value="coordinator">coordinator</option>
+                <option value="school_leader">school_leader</option>
+                <option value="authority">authority</option>
+                <option value="government">government</option>
+                <option value="admin">admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>User ID</label>
+              <input type="text" id="login-user-id" value="user01" required>
+            </div>
+            <div class="form-group">
+              <label>School Org ID</label>
+              <input type="text" id="login-school-org-id">
+            </div>
+            <div class="form-group">
+              <label>School Name</label>
+              <input type="text" id="login-school-name">
+            </div>
+            <div class="form-group">
+              <label>Municipality ID</label>
+              <input type="text" id="login-municipality-id">
+            </div>
+            <div class="form-group">
+              <label>County ID</label>
+              <input type="text" id="login-county-id">
+            </div>
+            <div class="action-bar mb-0">
+              <button type="submit" class="btn btn-primary">Login</button>
+              <button type="button" class="btn btn-danger" onclick="app.logout()">Logout</button>
+              <button type="button" class="btn" onclick="app.whoami()">Who Am I</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Student Tab -->
+      <section id="tab-student" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Student View</h3>
+          <form id="student-form" onsubmit="event.preventDefault(); app.viewStudent();">
+            <div class="form-group">
+              <label>Grade</label>
+              <input type="text" id="student-grade" placeholder="e.g. G5" required>
+            </div>
+            <div class="form-group">
+              <label>Subject</label>
+              <input type="text" id="student-subject" placeholder="e.g. NOR" required>
+            </div>
+            <button type="submit" class="btn btn-primary">View Student Curriculum</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Teacher Upload Tab -->
+      <section id="tab-upload" class="tab-pane">
+        <div class="card" style="max-width: 600px;">
+          <h3>Upload Curriculum</h3>
+          <form id="upload-form" onsubmit="event.preventDefault(); app.uploadCurriculum();">
+            <div class="form-group">
+              <label>File</label>
+              <input type="file" id="upload-file" required>
+            </div>
+            <div class="form-group">
+              <label>Upload Type</label>
+              <select id="upload-type" required>
+                <option value="annual_plan">Annual Plan</option>
+                <option value="term_plan">Term Plan</option>
+                <option value="unit_plan">Unit Plan</option>
+                <option value="lesson_plan">Lesson Plan</option>
+                <option value="assessment_rubric">Assessment Rubric</option>
+                <option value="student_evidence">Student Evidence</option>
+                <option value="local_curriculum_exception">Local Curriculum Exception</option>
+              </select>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Grade</label>
+                <input type="text" id="upload-grade" placeholder="e.g. G5">
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <input type="text" id="upload-subject" placeholder="e.g. NOR">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Subject Name</label>
+                <input type="text" id="upload-subject-name">
+              </div>
+              <div class="form-group">
+                <label>Programme</label>
+                <input type="text" id="upload-programme">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Competence Aim IDs (comma separated)</label>
+              <input type="text" id="upload-aims">
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>School Year</label>
+                <input type="text" id="upload-school-year">
+              </div>
+              <div class="form-group">
+                <label>Term</label>
+                <input type="text" id="upload-term">
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="checkbox-group">
+                <input type="checkbox" id="upload-student-data">
+                <label for="upload-student-data">Contains Student Data</label>
+              </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="upload-dpia">
+                <label for="upload-dpia">Requires DPIA</label>
+              </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="upload-attach" checked>
+                <label for="upload-attach">Attach Automatically</label>
+              </div>
+              <div class="checkbox-group">
+                <input type="checkbox" id="upload-strict">
+                <label for="upload-strict">Strict Mode</label>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Curriculum</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Inspect Tab -->
+      <section id="tab-inspect" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Inspect Curriculum</h3>
+          <form id="inspect-form" onsubmit="event.preventDefault(); app.inspect();">
+            <div class="form-group">
+              <label>Type</label>
+              <select id="inspect-type" required>
+                <option value="grade">Grade</option>
+                <option value="subject">Subject</option>
+                <option value="programme">Programme</option>
+                <option value="node">Node</option>
+                <option value="upload">Upload</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Target ID</label>
+              <input type="text" id="inspect-target" required placeholder="e.g. G5">
+            </div>
+            <button type="submit" class="btn btn-primary">Inspect</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Search Tab -->
+      <section id="tab-search" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Search Network</h3>
+          <form id="search-form" onsubmit="event.preventDefault(); app.search();">
+            <div class="form-group">
+              <label>Query</label>
+              <input type="text" id="search-query" required placeholder="e.g. norsk">
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Limit</label>
+                <input type="number" id="search-limit" value="25" min="1">
+              </div>
+              <div class="form-group" style="display: flex; align-items: flex-end;">
+                <div class="checkbox-group mb-4">
+                  <input type="checkbox" id="search-private">
+                  <label for="search-private">Include Private</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+          </form>
+        </div>
+        <div id="search-results"></div>
+      </section>
+
+      <!-- Coverage Tab -->
+      <section id="tab-coverage" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Coverage & Gaps</h3>
+          <form id="coverage-form" onsubmit="event.preventDefault();">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Grade</label>
+                <input type="text" id="coverage-grade" required placeholder="e.g. G5">
+              </div>
+              <div class="form-group">
+                <label>Subject</label>
+                <input type="text" id="coverage-subject" required placeholder="e.g. NOR">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>School Org ID (Optional)</label>
+              <input type="text" id="coverage-school">
+            </div>
+            <div class="action-bar mb-0">
+              <button type="button" class="btn btn-primary" onclick="app.getCoverage()">Coverage</button>
+              <button type="button" class="btn btn-primary" onclick="app.getGaps()">Gaps</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <!-- Government Tab -->
+      <section id="tab-government" class="tab-pane">
+        <div class="card">
+          <h3>Government View</h3>
+          <div class="action-bar">
+            <button class="btn btn-primary" onclick="app.getGovBenefits()">Benefits</button>
+            <button class="btn btn-primary" onclick="app.inspectSystem()">Inspect System</button>
+            <button class="btn btn-primary" onclick="app.canonicalStatus()">Canonical Status</button>
+            <button class="btn btn-primary" onclick="app.sampleCanonical()">Sample Canonical</button>
+          </div>
+        </div>
+        <div id="gov-results"></div>
+      </section>
+
+      <!-- Audit Tab -->
+      <section id="tab-audit" class="tab-pane">
+        <div class="card" style="max-width: 500px;">
+          <h3>Audit Logs</h3>
+          <form id="audit-form" onsubmit="event.preventDefault(); app.getAudit();">
+            <div class="form-group">
+              <label>Limit</label>
+              <input type="number" id="audit-limit" value="50" min="1">
+            </div>
+            <button type="submit" class="btn btn-primary">Load Audit</button>
+          </form>
+        </div>
+        <div id="audit-results"></div>
+      </section>
+
+      <!-- JSON Tab -->
+      <section id="tab-json" class="tab-pane">
+        <div class="card">
+          <h3>Latest JSON Response</h3>
+          <button class="btn json-copy-btn" onclick="app.copyJson()">Copy JSON</button>
+          <pre id="json-output">Waiting for API call...</pre>
+        </div>
+      </section>
+
+      <!-- Local AI Tab -->
+      <section id="tab-ai" class="tab-pane">
+
+        <!-- AI Status -->
+        <div class="card">
+          <h3>AI Status</h3>
+          <div class="action-bar">
+            <button class="btn btn-primary" id="btn-ai-status" onclick="app.aiStatus()">AI Status</button>
+            <button class="btn btn-primary" id="btn-ai-adapter-status" onclick="app.aiAdapterStatus(false)">Adapter Status (Full)</button>
+            <button class="btn btn-primary" id="btn-ai-adapter-status-summary" onclick="app.aiAdapterStatus(true)">Adapter Status (Summary)</button>
+            <button class="btn btn-primary" id="btn-ai-wsd-test" onclick="app.aiWsdTest()">WSD Regression Test</button>
+          </div>
+          <div id="ai-status-results"></div>
+        </div>
+
+        <!-- Lexicon Lookup -->
+        <div class="card">
+          <h3>Lexicon Lookup</h3>
+          <form id="ai-lexicon-form" onsubmit="event.preventDefault(); app.aiLexicon();">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Term</label>
+                <input type="text" id="ai-lexicon-term" placeholder="e.g. cat" required>
+              </div>
+              <div class="form-group">
+                <label>Context (optional)</label>
+                <input type="text" id="ai-lexicon-context" placeholder="e.g. cat animal">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Limit</label>
+                <input type="number" id="ai-lexicon-limit" value="5" min="1" max="50">
+              </div>
+              <div class="form-group">
+                <label>POS (optional)</label>
+                <input type="text" id="ai-lexicon-pos" placeholder="noun / verb / adjective">
+              </div>
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="ai-lexicon-relations">
+              <label for="ai-lexicon-relations">Include Relations</label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-lexicon">Lookup</button>
+          </form>
+          <div id="ai-lexicon-results"></div>
+        </div>
+
+        <!-- Alias Resolution -->
+        <div class="card">
+          <h3>Alias Resolution</h3>
+          <form id="ai-alias-form" onsubmit="event.preventDefault(); app.aiAlias();">
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Term / Inflection</label>
+                <input type="text" id="ai-alias-term" placeholder="e.g. running" required>
+              </div>
+              <div class="form-group">
+                <label>Context (optional)</label>
+                <input type="text" id="ai-alias-context" placeholder="e.g. running">
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>Limit</label>
+                <input type="number" id="ai-alias-limit" value="5" min="1" max="50">
+              </div>
+              <div class="form-group">
+                <label>POS (optional)</label>
+                <input type="text" id="ai-alias-pos" placeholder="noun / verb">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-alias">Resolve Alias</button>
+          </form>
+          <div id="ai-alias-results"></div>
+        </div>
+
+        <!-- Advisory Text -->
+        <div class="card">
+          <h3>Advisory Text</h3>
+          <form id="ai-advisory-form" onsubmit="event.preventDefault(); app.aiAdvisory();">
+            <div class="form-group">
+              <label>Text</label>
+              <input type="text" id="ai-advisory-text" placeholder="e.g. cat animal" required>
+            </div>
+            <div class="form-group">
+              <label>Profile</label>
+              <select id="ai-advisory-profile">
+                <option value="curriculum">curriculum</option>
+                <option value="general">general</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-advisory">Get Advisory</button>
+          </form>
+          <div id="ai-advisory-results"></div>
+        </div>
+
+        <!-- Safe Sentence Builder -->
+        <div class="card">
+          <h3>Safe Sentence Builder</h3>
+          <form id="ai-sentence-form" onsubmit="event.preventDefault(); app.aiBuildSentence();">
+            <div class="form-group">
+              <label>Prompt</label>
+              <input type="text" id="ai-sentence-prompt" placeholder="e.g. cat animal" required>
+            </div>
+            <div class="grid-2">
+              <div class="form-group">
+                <label>N (max candidates)</label>
+                <input type="number" id="ai-sentence-n" value="5" min="1" max="20">
+              </div>
+              <div class="form-group" style="display:flex;align-items:flex-end;gap:1rem;">
+                <div class="checkbox-group mb-4">
+                  <input type="checkbox" id="ai-sentence-raw" checked>
+                  <label for="ai-sentence-raw">Raw (sentence-builder)</label>
+                </div>
+                <div class="checkbox-group mb-4">
+                  <input type="checkbox" id="ai-sentence-safe" checked>
+                  <label for="ai-sentence-safe">Safe mode</label>
+                </div>
+                <div class="checkbox-group mb-4">
+                  <input type="checkbox" id="ai-sentence-entropy" checked>
+                  <label for="ai-sentence-entropy">Entropy rerank</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-sentence">Build Sentence</button>
+          </form>
+          <div id="ai-sentence-results"></div>
+        </div>
+
+        <!-- Entropy Analyze -->
+        <div class="card">
+          <h3>Entropy Analyze</h3>
+          <form id="ai-entropy-analyze-form" onsubmit="event.preventDefault(); app.aiEntropyAnalyze();">
+            <div class="form-group">
+              <label>Text</label>
+              <input type="text" id="ai-entropy-analyze-text" placeholder="e.g. cat animal" required>
+            </div>
+            <div class="form-group">
+              <label>Profile</label>
+              <select id="ai-entropy-analyze-profile">
+                <option value="curriculum">curriculum</option>
+                <option value="general">general</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-entropy-analyze">Analyze</button>
+          </form>
+        </div>
+
+        <!-- Entropy Rerank -->
+        <div class="card">
+          <h3>Entropy Rerank</h3>
+          <form id="ai-entropy-rerank-form" onsubmit="event.preventDefault(); app.aiEntropyRerank();">
+            <div class="form-group">
+              <label>Candidates (one per line or JSON array)</label>
+              <textarea id="ai-entropy-rerank-candidates" rows="4" placeholder='["A cat is an animal.", "A cat relates to an animal."]'></textarea>
+            </div>
+            <div class="form-group">
+              <label>Context (optional)</label>
+              <input type="text" id="ai-entropy-rerank-context" placeholder="cat animal">
+            </div>
+            <button type="submit" class="btn btn-primary" id="btn-ai-entropy-rerank">Rerank</button>
+          </form>
+        </div>
+
+      </section>
+    </div>
+  </main>
+  
+  <script src="app.js"></script>
+</body>
+</html>

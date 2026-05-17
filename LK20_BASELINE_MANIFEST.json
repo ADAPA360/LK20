@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-05-12T08:58:15Z",
+  "project_root": "C:\\Users\\ali_z\\ANU AI\\LK20",
+  "python_version": "3.12.4",
+  "backend_url": "http://127.0.0.1:8000/api",
+  "frontend_url": "http://127.0.0.1:8000/",
+  "test_commands": [
+    "python sdk_preflight.py",
+    "python sdk_contract_test.py",
+    "python privacy_boundary_test.py",
+    "python verify_network_integrity.py",
+    "python smoke_test_web.py"
+  ],
+  "verification_status": {
+    "sdk_preflight": "PASS",
+    "sdk_contract": "PASS",
+    "privacy_boundary": "PASS",
+    "network_integrity": "PASS",
+    "smoke_test": "PASS"
+  },
+  "hashes": {
+    "core_logic": {
+      "lk20_main.py": "3d94634a3033ca10f21695b2354dec641ca11c036ba80d1bd8cf0288804367c0",
+      "lk20_server.py": "9dd366bb1e5f0573e58b418c432ae58bba65c4c5dd97e661d37bf4531435231c",
+      "lk20_kernel.py": "9b6422751a65a702cea54905944f4724f68611acc0e1b8f24fd16a90295261c2",
+      "digital_twin_kernel.py": "1c0ee3b403d00667e7054e110dcaa63b7c2175a2f4cfde17750d0385f01ec510",
+      "twin_anything.py": "ceea62f420d9e2f9d7ef2b9e2451dfd88abaec689ffc615ac52f6ab0903cfcd1",
+      "tn_root.py": "710b69ad83a5b7fa6bf5743836abdc7007c2487364828947bddf36987c11f185",
+      "tn_stack.py": "c8457f735c6d5fd715f9ff8a3622a5899ad5cc8eceb06df1ae57011cb83c331f"
+    },
+    "scaffolds": {
+      "API_ROUTES.md": "a08e0dae28610d9a62d8069081d8930d9b0f1c7721575ec421564383980a3bf6",
+      "approval_workflow.py": "0eedc54c8c1998d44bd785c4b88f29bf2160e27f1e294eac8157bbc13706415c",
+      "embedding_index.py": "648af3f8fb75c07f53e0463b78392626ce9f3f81802a463f9f7dfc3565c1013f",
+      "federation_export.py": "db5239716f17fc0302a103e9e8010ac00f87a592454c9e9815f40cda7a3a8b87",
+      "federation_import.py": "05a145af9d841422172384643eb87e6dd3fb411a7b70ab75c2790356f28e406c",
+      "grep_import_manifest.py": "73bc77690b859e4fe33446e9320a9cf2af496e73bfb3828c626acc585deae75d",
+      "grep_normalizer.py": "ef9be6602f16bf14374a5b91cd18109dfbc1c5486d45b9f25944834a15fee74c",
+      "idporten_auth_adapter_placeholder.py": "4c2f8b77ad38e35697fdd316437676ea42284afd306f83feec28e3efb459c5b4",
+      "local_ai_adapter.py": "baf6befc6a44a26925c71b25d40470aacaef05ceefcdd0111f09e5e6cbfca2c8",
+      "make_sdk_release.py": "e0e5919ebeac09d4b29a11739a6aa349d6e0656b8c4f5dacd8142d6131dfd81b",
+      "NATIONAL_IMPLEMENTATION_NOTES.md": "3526924f182f0d0f9b5c21e6bae1256f059f02d1da94ccfce8a5debd1abdad48",
+      "privacy_boundary_test.py": "e2250011596c451b496637be3662ba35c9157cf9b25ee3060db60cb18b2e7325",
+      "PRIVACY_MODEL.md": "a316cc3a6ec6869a890cf5cb0c1a2d70a4ea3c417b09e2b24995b7ab940ab018",
+      "README_SDK.md": "b7f4632cdfea4b1e5313fe4fc3f5a6cce58a3fd7591bd990467628af730f92b7",
+      "sdk_contract_test.py": "99eb5eaf3f37b819a43053a12c9738ba60d7f875219c8063f40e7e568797a2f5",
+      "sdk_preflight.py": "4cd95ed76e4c417ae18438519403f406e3e29cb3adc8ea36af7df068254e3f85",
+      "SECURITY_LOCAL_DEV.md": "703fa5109c1f15aaa826855e1f5d428342f3b9a10a1af63dd3e3bbbe84d6faeb",
+      "smoke_test_web.py": "2d3b9c34d125cb0f507b09559c605a51782e421e99e95e6f48052bc246e0eb39",
+      "verify_network_integrity.py": "e373556731c0a6b32c4fa04f8ca3555f6f6c85432462a76044be57a9ed0090cc"
+    },
+    "reports": {
+      "ANTIGRAVITY_PROJECT_MAP.md": "2300b7360af5568bce723a969faea8235d566dee2557b19cf118be6e202022be",
+      "ANTIGRAVITY_VERIFICATION_REPORT.md": "044af91b792ec1f0e56fd2087631104f984a1bf6f4854357e2ba4824b89a7421",
+      "ANTIGRAVITY_CHANGELOG.md": "55ef55323355d0b75e3ee5b3dc416a79b46b1b418a15d4a918edf5aaf3c45171"
+    }
+  },
+  "network_merkle_root": null
+}

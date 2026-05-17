@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Exclude entire local AI resources folder (large DBs, JSONL raw shards, dictionaries)
+local_ai/resources/
+
+# Exclude all large NPZ/semantic bank files
+local_ai/*.npz
+*.npz
+
+# Exclude other databases and logs
+*.db
+*.sqlite
+*.log
+
+# Large temporary/scratch files
+scratch/
+.gemini/
+.env

@@ -1,0 +1,58 @@
+{
+  "ok": true,
+  "report_type": "government_benefits",
+  "created_at": "2026-05-12T10:49:45",
+  "system": "Akkurat LK20 Curriculum Digital Twin",
+  "summary": "The system creates a governed digital twin of LK20 where national curriculum data remains canonical and local school artefacts are attached as auditable overlays.",
+  "benefits": [
+    {
+      "title": "Curriculum transparency",
+      "details": "Grades, subjects, programmes, competence aims, assessment rules, and local plans become inspectable through one governed structure."
+    },
+    {
+      "title": "Canonical/local separation",
+      "details": "Udir/Grep content remains authoritative; school uploads bind to canonical targets without mutating them."
+    },
+    {
+      "title": "Traceable local implementation",
+      "details": "Annual plans, term plans, unit plans, rubrics, and evidence are hashed, logged, and linked to curriculum targets."
+    },
+    {
+      "title": "Coverage and gap detection",
+      "details": "The system can identify missing grade/subject bindings and later full competence-aim coverage once Grep data is populated."
+    },
+    {
+      "title": "Teacher planning support",
+      "details": "Teachers get a structured workflow for validating and attaching local plans to LK20."
+    },
+    {
+      "title": "Student-facing clarity",
+      "details": "Students can view relevant learning goals, approved plans, and assessment expectations without seeing private governance data."
+    },
+    {
+      "title": "Auditability",
+      "details": "Every mutating action can be written to local audit logs and every network state can be Merkle-verified."
+    },
+    {
+      "title": "Privacy boundary visibility",
+      "details": "Student evidence is explicitly separated through role gates, visibility flags, and DPIA warnings."
+    },
+    {
+      "title": "Authority-level insight",
+      "details": "Municipalities, counties, and national inspectors can inspect aggregated implementation status without direct access to student-level artefacts."
+    }
+  ],
+  "architecture": {
+    "tn.py": "Low-level TensorTrain/Tucker runtime.",
+    "digital_twin_kernel.py": "Governed tree tensor network and state kernel.",
+    "twin_anything.py": "Generic object/process twin factory.",
+    "lk20_kernel.py": "LK20 curriculum-domain topology and workflows.",
+    "lk20_main.py": "Role-aware command gateway."
+  },
+  "privacy_position": [
+    "Local uploads are not public by default.",
+    "Student evidence must be marked contains_student_data=True.",
+    "Student data requires private_school visibility.",
+    "Government reports should aggregate or exclude student-level artefacts."
+  ]
+}
